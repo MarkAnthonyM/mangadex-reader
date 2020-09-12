@@ -1,5 +1,5 @@
 table! {
-    mangas (id) {
+    manga (id) {
         id -> Int4,
         title -> Text,
         authors -> Nullable<Array<Text>>,

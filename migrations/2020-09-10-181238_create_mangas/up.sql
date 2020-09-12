@@ -1,4 +1,4 @@
-CREATE TABLE mangas (
+CREATE TABLE manga (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     authors TEXT [],
