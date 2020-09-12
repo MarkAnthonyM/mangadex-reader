@@ -1,1 +1,1 @@
-DROP TABLE mangas
+DROP TABLE manga
