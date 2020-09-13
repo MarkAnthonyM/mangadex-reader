@@ -25,3 +25,8 @@ pub fn create_manga(connection: &PgConnection, title: &str) {
         .execute(connection)
         .expect("Error inserting new manga");
 }
+
+// Query manga item from database
+pub fn query_manga(connection: &PgConnection) -> Vec<models::Manga> {
+    manga::table.load::<models::Manga>(connection).expect("Error loading manga")
+}
