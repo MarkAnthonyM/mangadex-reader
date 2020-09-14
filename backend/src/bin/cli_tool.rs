@@ -26,7 +26,7 @@ fn show_manga(args: &[String]) {
     
     let conn = establish_connection();
     println!("Mangas\n------");
-    for manga in query_manga(&conn).iter() {
+    for manga in query_manga(&conn) {
         println!("Manga ID: {}\nManga Name: {}\n", manga.id, manga.title);
     }
 }
