@@ -18,3 +18,8 @@ pub struct MangaJsonWrapper {
     pub id: String,
     pub attributes: Manga,
 }
+
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub struct JsonApiResponse {
+    pub data: Vec<MangaJsonWrapper>,
+}
