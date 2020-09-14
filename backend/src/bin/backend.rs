@@ -20,7 +20,7 @@ fn mangas_get() -> Json<JsonApiResponse> {
 
     let conn = establish_connection();
     for db_manga in query_manga(&conn) {
-        // Convert manga json response to api version of manga struct
+        // Convert database manga model response to api version of manga struct
         let api_manga = Manga {
             id: db_manga.id,
             title: db_manga.title,
