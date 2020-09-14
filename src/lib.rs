@@ -11,3 +11,10 @@ pub struct Manga {
     pub genre_names: Option<Vec<String>>,
     pub url_link: String,
 }
+
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub struct MangaJsonWrapper {
+    pub _type: String,
+    pub id: String,
+    pub attributes: Manga,
+}
