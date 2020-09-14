@@ -8,7 +8,14 @@ use backend::db::{ establish_connection, query_manga };
 // Route handler returns payload containing manga listings
 #[get("/mangas")]
 fn mangas_get() -> String {
-    "This is a response\n".into()
+    let mut response: Vec<String> = vec![];
+
+    let conn = establish_connection();
+    for manga in query_manga(&conn) {
+        response.push(manga.title);
+    }
+
+    response.join("\n")
 }
 
 fn main() {
