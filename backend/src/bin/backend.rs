@@ -9,17 +9,38 @@ extern crate serde;
 
 use backend::db::{ establish_connection, query_manga };
 
+use mangadex_reader::{ JsonApiResponse, Manga, MangaJsonWrapper };
+
+use rocket_contrib::json::Json;
+
 // Route handler returns payload containing manga listings
 #[get("/mangas")]
-fn mangas_get() -> String {
-    let mut response: Vec<String> = vec![];
+fn mangas_get() -> Json<JsonApiResponse> {
+    let mut response = JsonApiResponse { data: vec![] };
 
     let conn = establish_connection();
-    for manga in query_manga(&conn) {
-        response.push(manga.title);
+    for db_manga in query_manga(&conn) {
+        // Convert manga json response to api version of manga struct
+        let api_manga = Manga {
+            id: db_manga.id,
+            title: db_manga.title,
+            authors: db_manga.authors,
+            artists: db_manga.artists,
+            genre_ids: db_manga.genre_ids,
+            genre_names: db_manga.genre_names,
+            url_link: db_manga.url_link,
+        };
+
+        let formatted_manga = MangaJsonWrapper {
+            _type: "mangas".to_string(),
+            id: api_manga.id.to_string(),
+            attributes: api_manga,
+        };
+
+        response.data.push(formatted_manga)
     }
 
-    response.join("\n")
+    Json(response)
 }
 
 fn main() {
