@@ -31,6 +31,7 @@ fn mangas_get() -> Json<JsonApiResponse> {
             url_link: db_manga.url_link,
         };
 
+        // Toss queried manga item into wrapper struct that conforms to json api spec.
         let wrapped_manga = MangaJsonWrapper {
             _type: "mangas".to_string(),
             id: api_manga.id.to_string(),
