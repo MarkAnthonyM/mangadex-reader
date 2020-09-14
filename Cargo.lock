@@ -78,6 +78,7 @@ version = "0.1.0"
 dependencies = [
  "diesel",
  "dotenv",
+ "mangadex-reader",
  "rocket",
  "rocket_contrib",
  "serde",

@@ -9,7 +9,7 @@ edition = "2018"
 [dependencies]
 diesel = { version = "1.4.5", features = ["postgres"] }
 dotenv = "0.15.0"
-mangadex_reader = { path = ".." }
+mangadex-reader = { path = ".." }
 rocket = "0.4.5"
 serde = { version = "1.0.116", features = ["derive"] }
 
