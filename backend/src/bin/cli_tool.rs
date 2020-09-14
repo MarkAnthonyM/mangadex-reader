@@ -1,5 +1,5 @@
 use std::env;
-use backend::db::{ create_manga, establish_connection };
+use backend::db::{ create_manga, establish_connection, query_manga };
 
 fn help() {
     println!("subcommand:");
@@ -17,6 +17,20 @@ fn new_manga(args: &[String]) {
     create_manga(&conn, &args[0]);
 }
 
+fn show_manga(args: &[String]) {
+    if args.len() > 0 {
+        println!("show: Unexpected argument");
+        help();
+        return;
+    }
+    
+    let conn = establish_connection();
+    println!("Mangas\n------");
+    for manga in query_manga(&conn).iter() {
+        println!("Manga ID: {}\nManga Name: {}\n", manga.id, manga.title);
+    }
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
 
@@ -28,6 +42,7 @@ fn main() {
     let subcommand = &args[1];
     match subcommand.as_ref() {
         "new" => new_manga(&args[2..]),
+        "show" => show_manga(&args[2..]),
         _ => help(),
     }
 }
