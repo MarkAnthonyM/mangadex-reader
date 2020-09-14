@@ -31,13 +31,13 @@ fn mangas_get() -> Json<JsonApiResponse> {
             url_link: db_manga.url_link,
         };
 
-        let formatted_manga = MangaJsonWrapper {
+        let wrapped_manga = MangaJsonWrapper {
             _type: "mangas".to_string(),
             id: api_manga.id.to_string(),
             attributes: api_manga,
         };
 
-        response.data.push(formatted_manga)
+        response.data.push(wrapped_manga)
     }
 
     Json(response)
