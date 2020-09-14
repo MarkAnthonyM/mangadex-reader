@@ -24,7 +24,7 @@ impl<'a> NewManga<'a> {
     }
 }
 
-#[derive(Queryable)]
+#[derive(Queryable, Serialize)]
 pub struct Manga {
     pub id: i32,
     pub title: String,
