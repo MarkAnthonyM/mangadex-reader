@@ -11,6 +11,7 @@ use mangadex_reader::{ JsonApiResponse, Manga, MangaJsonWrapper };
 
 use rocket_contrib::databases::diesel;
 use rocket_contrib::json::Json;
+use rocket_cors::{ AllowedHeaders, AllowedOrigins, Error };
 
 // Rocket connection pool
 #[database("postgres_mangadex")]
@@ -46,9 +47,22 @@ fn mangas_get(conn: MangadexDbConn) -> Json<JsonApiResponse> {
     Json(response)
 }
 
-fn main() {
+fn main() -> Result<(), Error> {
+    let allowed_origins = AllowedOrigins::all();
+
+    let cors = rocket_cors::CorsOptions {
+        allowed_origins,
+        allowed_headers: AllowedHeaders::some(&["Authorization", "Accept"]),
+        allow_credentials: true,
+        ..Default::default()
+    }
+        .to_cors()?;
+    
     rocket::ignite()
         .attach(MangadexDbConn::fairing())
+        .attach(cors)
         .mount("/", routes![mangas_get])
         .launch();
+    
+    Ok(())
 }
