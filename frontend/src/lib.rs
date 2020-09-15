@@ -39,3 +39,8 @@ async fn fetch_drills() -> Option<Msg> {
     let payload: Result<JsonApiResponse, FetchError> = request.unwrap().json().await;
     Some(Msg::FetchedMangas(payload))
 }
+
+fn init(_url: Url, orders: &mut impl Orders<Msg>) -> Model {
+    orders.perform_cmd(fetch_drills());
+    Model { mangas: vec![] }
+}
