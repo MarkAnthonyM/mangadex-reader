@@ -33,3 +33,9 @@ fn view(model: &Model) -> Node<Msg> {
         ],
     ]
 }
+
+async fn fetch_drills() -> Option<Msg> {
+    let request = fetch("http://localhost:8000/mangas/").await;
+    let payload: Result<JsonApiResponse, FetchError> = request.unwrap().json().await;
+    Some(Msg::FetchedMangas(payload))
+}
