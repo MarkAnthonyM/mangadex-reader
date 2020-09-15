@@ -1,0 +1,4 @@
+[tasks.serve-back]
+description = "Sends command to spin up the backend server"
+command = "cargo"
+args = ["run", "--bin", "backend"]
