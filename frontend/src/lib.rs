@@ -3,6 +3,9 @@ use seed::{ prelude::*, * };
 use mangadex_reader::{ JsonApiResponse, MangaJsonWrapper };
 
 struct Model {
-    task: Vec<MangaJsonWrapper>,
+    Mangas: Vec<MangaJsonWrapper>,
 }
 
+enum Msg {
+    FetchedMangas(Result<JsonApiResponse, FetchError>),
+}
