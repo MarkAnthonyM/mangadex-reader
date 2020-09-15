@@ -7,18 +7,21 @@ extern crate rocket_contrib;
 #[macro_use]
 extern crate serde;
 
-use backend::db::{ establish_connection, query_manga };
+use backend::db::query_manga;
 
 use mangadex_reader::{ JsonApiResponse, Manga, MangaJsonWrapper };
 
+use rocket_contrib::databases::diesel;
 use rocket_contrib::json::Json;
+
+#[database("postgres_mangadex")]
+struct MangadexDbConn(diesel::PgConnection);
 
 // Route handler returns payload containing manga listings
 #[get("/mangas")]
-fn mangas_get() -> Json<JsonApiResponse> {
+fn mangas_get(conn: MangadexDbConn) -> Json<JsonApiResponse> {
     let mut response = JsonApiResponse { data: vec![] };
 
-    let conn = establish_connection();
     for db_manga in query_manga(&conn) {
         // Convert database manga model response to api version of manga struct
         let api_manga = Manga {
@@ -46,6 +49,7 @@ fn mangas_get() -> Json<JsonApiResponse> {
 
 fn main() {
     rocket::ignite()
+        .attach(MangadexDbConn::fairing())
         .mount("/", routes![mangas_get])
         .launch();
 }
