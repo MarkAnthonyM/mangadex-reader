@@ -5,3 +5,14 @@ dependencies = ["create_wasm"]
 command = "wasm-pack"
 args = ["build", "--target", "web", "--out-name", "package", "--dev"]
 dependencies = ["build"]
+
+[tasks.serve-front]
+description = "Sends command to spin up the frontend server"
+command = "microserver"
+
+[tasks.watch-front]
+description = "Sends command to watch for changes on the front"
+run_task = [
+    { name = "create_wasm" },
+]
+watch = true

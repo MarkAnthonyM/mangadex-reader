@@ -4,3 +4,15 @@ CARGO_MAKE_EXTEND_WORKSPACE_MAKEFILE = "true"
 [tasks.default]
 clear = true
 dependencies = ["build"]
+
+[tasks.serve-back]
+description = "Sends command to spin up the backend server"
+
+[tasks.serve-front]
+description = "Sends command to spin up the frontend server"
+
+[tasks.watch-back]
+description = "Sends command to watch for changes on the back"
+
+[tasks.watch-front]
+description = "Sends command to watch for changes on the front"
