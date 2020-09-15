@@ -14,6 +14,7 @@ use mangadex_reader::{ JsonApiResponse, Manga, MangaJsonWrapper };
 use rocket_contrib::databases::diesel;
 use rocket_contrib::json::Json;
 
+// Rocket connection pool
 #[database("postgres_mangadex")]
 struct MangadexDbConn(diesel::PgConnection);
 
