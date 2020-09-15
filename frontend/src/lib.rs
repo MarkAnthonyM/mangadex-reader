@@ -44,3 +44,8 @@ fn init(_url: Url, orders: &mut impl Orders<Msg>) -> Model {
     orders.perform_cmd(fetch_drills());
     Model { mangas: vec![] }
 }
+
+#[wasm_bindgen(start)]
+pub fn start() {
+    App::start("app", init, update, view);
+}
