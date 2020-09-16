@@ -1,5 +1,5 @@
 .bg-light {
-    background-color: #dae0e5;
+    background-color: #e3e5e6;
 }
 
 .container {
@@ -10,8 +10,19 @@
     margin-left: auto;
 }
 
+@media (min-width: 725px) {
+    .container {
+        display: flex;
+        max-width: 720px;
+    }
+}
+
 .navbar {
     position: relative;
     display: flex;
     padding: 0.5rem 1rem;
+}
+
+.navbar-title {
+    padding-left: 40px;
 }

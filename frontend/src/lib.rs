@@ -22,14 +22,32 @@ fn update(msg: Msg, model: &mut Model, _orders: &mut impl Orders<Msg>) {
     }
 }
 
-fn view(model: &Model) -> Node<Msg> {
-    h1![
-        "Mangas",
-        ul![
-            model
-                .mangas
-                .iter()
-                .map(|t| li![ t.attributes.title.clone() ])
+// ------ ------
+//      View
+// ------ ------
+
+fn view(model: &Model) -> impl IntoNodes<Msg> {
+    nodes![
+        view_nav(),
+    ]
+}
+
+// ------ Nav ------
+
+fn view_nav() -> Node<Msg> {
+    nav![
+        C!["navbar", "bg-light"],
+        div![
+            C!["container"],
+            a![
+                C!["navbar-brand"],
+                img![
+                    attrs! {
+                        At::Src => "https://via.placeholder.com/60";
+                    }
+                ]
+            ],
+            h1![C!["navbar-title"], "Manga Test Site"],
         ],
     ]
 }
