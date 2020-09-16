@@ -11,10 +11,10 @@ impl DexManga {
     fn create_mock() -> Self {
         DexManga {
             id: 0,
-            chapter: "fake chapter",
-            cover_url: "fake cover",
-            group: "fake group",
-            timestamp: "fake timestamp",
+            chapter: "fake chapter".to_string(),
+            cover_url: "fake cover".to_string(),
+            group: "fake group".to_string(),
+            timestamp: "fake timestamp".to_string(),
         }
     }
 }
