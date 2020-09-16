@@ -2,6 +2,14 @@
     background-color: #e3e5e6;
 }
 
+.card-main {
+    text-align: center;
+}
+
+.card-row {
+    justify-content: center;
+}
+
 .container {
     width: 100%;
     padding-right: 15px;
@@ -13,7 +21,7 @@
 @media (min-width: 725px) {
     .container {
         display: flex;
-        max-width: 720px;
+        max-width: 650px;
     }
 }
 
