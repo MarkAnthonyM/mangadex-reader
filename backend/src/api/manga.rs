@@ -1,6 +1,6 @@
 #[derive(Deserialize)]
 struct DexManga {
-    id: String,
+    id: i32,
     chapter: String,
     cover_url: String,
     group: String,
@@ -10,7 +10,7 @@ struct DexManga {
 impl DexManga {
     fn create_mock() -> Self {
         DexManga {
-            id: "fake id",
+            id: 0,
             chapter: "fake chapter",
             cover_url: "fake cover",
             group: "fake group",
