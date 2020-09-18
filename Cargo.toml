@@ -10,4 +10,5 @@ edition = "2018"
 members = ["backend", "frontend"]
 
 [dependencies]
+reqwest = {version = "0.10.8", features = ["blocking", "json"] }
 serde = { version = "1.0.116", features = ["derive"] }
