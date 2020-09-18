@@ -15,13 +15,13 @@ pub struct Manga {
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
-pub struct MangaJsonWrapper {
+pub struct MangaJsonWrapper<T> {
     pub _type: String,
     pub id: String,
-    pub attributes: Manga,
+    pub attributes: T,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
-pub struct JsonApiResponse {
-    pub data: Vec<MangaJsonWrapper>,
+pub struct JsonApiResponse<T> {
+    pub data: Vec<MangaJsonWrapper<T>>,
 }
