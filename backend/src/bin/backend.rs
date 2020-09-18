@@ -20,7 +20,7 @@ struct MangadexDbConn(diesel::PgConnection);
 
 // Route handler returns payload containing manga listings
 #[get("/mangas")]
-fn mangas_get(conn: MangadexDbConn) -> Json<JsonApiResponse> {
+fn mangas_get(conn: MangadexDbConn) -> Json<JsonApiResponse<Manga>> {
     let mut response = JsonApiResponse { data: vec![] };
 
     for db_manga in query_manga(&conn) {
@@ -49,7 +49,8 @@ fn mangas_get(conn: MangadexDbConn) -> Json<JsonApiResponse> {
 }
 
 #[get("/testapi")]
-fn api_test() -> Json<api::manga::Manga> {
+fn api_test() -> Json<JsonApiResponse<api::manga::Manga>> {
+    let mut response = JsonApiResponse { data: vec![] };
     let test_manga = api::manga::Manga::populate();
     let data = match test_manga {
         Ok(result) => Some(result),
@@ -59,7 +60,13 @@ fn api_test() -> Json<api::manga::Manga> {
         },
     };
 
-    let response = data.unwrap();
+    let wrapped_manga = MangaJsonWrapper {
+        _type: "mangas".to_string(),
+        id: "42186".to_string(),
+        attributes: data.unwrap(),
+    };
+
+    response.data.push(wrapped_manga);
 
     Json(response)
 }
