@@ -1,15 +1,20 @@
 use reqwest;
+use serde:: Deserialize;
 
-#[derive(Deserialize)]
-pub struct DexManga {
-    id: i32,
-    chapter: String,
-    cover_url: String,
-    group: String,
-    timestamp: String,
+#[derive(Deserialize, Serialize)]
+pub struct Manga {
+    pub manga: MangaData,
 }
 
-impl DexManga {
+#[derive(Deserialize, Serialize)]
+pub struct MangaData {
+    pub artist: String,
+    pub author: String,
+    pub cover_url: String,
+    pub title: String,
+}
+
+impl Manga {
     // Create mock data for testing purposes.
     pub fn create_mock() -> Self {
         DexManga {
@@ -22,10 +27,10 @@ impl DexManga {
     }
 
     // Make request for manga, fill struct with result. Currently sync, aim to make async.
-    pub fn fill(self) -> Result<String, reqwest::Error> {
-        let req = reqwest::blocking::get("https://www.mangadex.org/api/manga/42186")?
-            .text();
+    pub fn populate() -> Result<Manga, reqwest::Error> {
+        let request = reqwest::blocking::get("https://www.mangadex.org/api/manga/42186")?
+            .json::<Manga>();
 
-        req
+        request
     }
 }
