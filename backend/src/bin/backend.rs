@@ -5,10 +5,10 @@ extern crate rocket;
 #[macro_use]
 extern crate rocket_contrib;
 
-use backend::api;
 use backend::db::query_manga;
 
 use mangadex_reader::{ JsonApiResponse, Manga, MangaJsonWrapper };
+use mangadex_reader::api;
 
 use rocket_contrib::databases::diesel;
 use rocket_contrib::json::Json;
@@ -49,16 +49,19 @@ fn mangas_get(conn: MangadexDbConn) -> Json<JsonApiResponse> {
 }
 
 #[get("/testapi")]
-fn api_test() -> Option<String> {
-    let test_manga = api::manga::DexManga::create_mock();
-    let data = test_manga.fill();
-    match data {
+fn api_test() -> Json<api::manga::Manga> {
+    let test_manga = api::manga::Manga::populate();
+    let data = match test_manga {
         Ok(result) => Some(result),
         Err(e) => {
             println!("Error with request: {:?}", e);
             None
-        }
-    }
+        },
+    };
+
+    let response = data.unwrap();
+
+    Json(response)
 }
 
 fn main() -> Result<(), Error> {
