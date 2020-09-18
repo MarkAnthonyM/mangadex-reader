@@ -1,13 +1,13 @@
 extern crate seed;
 use seed::{ prelude::*, * };
-use mangadex_reader::{ JsonApiResponse, MangaJsonWrapper };
+use mangadex_reader::{ JsonApiResponse, Manga, MangaJsonWrapper };
 
 struct Model {
-    mangas: Vec<MangaJsonWrapper>,
+    mangas: Vec<MangaJsonWrapper<Manga>>,
 }
 
 enum Msg {
-    FetchedMangas(Result<JsonApiResponse, FetchError>),
+    FetchedMangas(Result<JsonApiResponse<Manga>, FetchError>),
 }
 
 fn update(msg: Msg, model: &mut Model, _orders: &mut impl Orders<Msg>) {
@@ -97,7 +97,7 @@ fn view_main() -> Node<Msg> {
 
 async fn fetch_drills() -> Option<Msg> {
     let request = fetch("http://localhost:8000/mangas/").await;
-    let payload: Result<JsonApiResponse, FetchError> = request.unwrap().json().await;
+    let payload: Result<JsonApiResponse<Manga>, FetchError> = request.unwrap().json().await;
     Some(Msg::FetchedMangas(payload))
 }
 
