@@ -83,6 +83,20 @@ fn api_test() -> Json<JsonApiResponse<Manga>> {
     Json(response)
 }
 
+#[get("/testdexapi")]
+fn dex_test() -> Json<api::manga::Manga> {
+    let response = api::manga::Manga::populate();
+    let data = match response {
+        Ok(result) => Some(result),
+        Err(e) => {
+            println!("Error with response: {:?}", e);
+            None
+        },
+    };
+
+    Json(data.unwrap())
+}
+
 fn main() -> Result<(), Error> {
     let allowed_origins = AllowedOrigins::all();
 
@@ -97,7 +111,7 @@ fn main() -> Result<(), Error> {
     rocket::ignite()
         .attach(MangadexDbConn::fairing())
         .attach(cors)
-        .mount("/", routes![mangas_get, api_test])
+        .mount("/", routes![mangas_get, api_test, dex_test])
         .launch();
     
     Ok(())
