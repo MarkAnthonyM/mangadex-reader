@@ -5,10 +5,10 @@ extern crate rocket;
 #[macro_use]
 extern crate rocket_contrib;
 
+use backend::api;
 use backend::db::query_manga;
 
 use mangadex_reader::{ JsonApiResponse, Manga, MangaJsonWrapper };
-use mangadex_reader::api;
 
 use rocket_contrib::databases::diesel;
 use rocket_contrib::json::Json;
@@ -49,10 +49,10 @@ fn mangas_get(conn: MangadexDbConn) -> Json<JsonApiResponse<Manga>> {
 }
 
 #[get("/testapi")]
-fn api_test() -> Json<JsonApiResponse<api::manga::Manga>> {
+fn api_test() -> Json<JsonApiResponse<Manga>> {
     let mut response = JsonApiResponse { data: vec![] };
-    let test_manga = api::manga::Manga::populate();
-    let data = match test_manga {
+    let manga_result = api::manga::Manga::populate();
+    let data = match manga_result {
         Ok(result) => Some(result),
         Err(e) => {
             println!("Error with request: {:?}", e);
@@ -60,10 +60,22 @@ fn api_test() -> Json<JsonApiResponse<api::manga::Manga>> {
         },
     };
 
+    let fetched_manga = data.unwrap();
+
+    let api_manga = Manga {
+        id: 42185,
+        title: fetched_manga.manga.title,
+        authors: Some(vec![fetched_manga.manga.author]),
+        artists: Some(vec![fetched_manga.manga.artist]),
+        genre_ids: Some(vec![0]),
+        genre_names: Some(vec!["fake genre".to_string()]),
+        url_link: fetched_manga.manga.cover_url,
+    };
+
     let wrapped_manga = MangaJsonWrapper {
         _type: "mangas".to_string(),
         id: "42186".to_string(),
-        attributes: data.unwrap(),
+        attributes: api_manga,
     };
 
     response.data.push(wrapped_manga);
