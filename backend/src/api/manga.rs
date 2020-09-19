@@ -8,10 +8,27 @@ pub struct Manga {
 
 #[derive(Deserialize, Serialize)]
 pub struct MangaData {
+    pub alt_names: Vec<String>,
     pub artist: String,
     pub author: String,
+    pub comments: i32,
     pub cover_url: String,
+    pub covers: Vec<String>,
+    pub demographic: i32,
+    pub description: String,
+    pub follows: i32,
+    // Maybe use an enum here
+    pub genres: Vec<i32>,
+    pub hentai: i32,
+    pub lang_name: String,
+    pub lang_flag: String,
+    // Figure out proper field datatypes
+    // pub links: MangaLinks
+    // pub rating: MangaRating,
+    // pub related: SomeType
+    pub status: i32,
     pub title: String,
+    pub views: i32,
 }
 
 impl Manga {
