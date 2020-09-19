@@ -5,3 +5,5 @@ extern crate dotenv;
 extern crate serde;
 
 pub mod db;
+
+pub mod api;
