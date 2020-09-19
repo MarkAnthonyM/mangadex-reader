@@ -74,7 +74,7 @@ fn view_main(model: &Model) -> Node<Msg> {
                     img![
                         attrs! {
                             At::Src => if model.mangas.len() > 0 {
-                                format!("https://mangadex.org/{}", model.mangas[0].attributes.url_link)
+                                format!("https://mangadex.org/{}", model.mangas[0].attributes.cover_url)
                             } else {
                                 "https://via.placeholder.com/200".into()
                             };
