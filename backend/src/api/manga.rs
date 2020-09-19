@@ -33,8 +33,9 @@ pub struct MangaData {
 impl Manga {
     // Make request for manga, deserizalize json object data into struct.
     //TODO: Make async when async hits stable rocket version
-    pub fn populate() -> Result<Manga, reqwest::Error> {
-        let request = reqwest::blocking::get("https://www.mangadex.org/api/manga/42186")?
+    pub fn populate(id: &String) -> Result<Manga, reqwest::Error> {
+        let request_url = format!("https://mangadex.org/api/manga/{}", id);
+        let request = reqwest::blocking::get(request_url.as_str())?
             .json::<Manga>();
 
         request
