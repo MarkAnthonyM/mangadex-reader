@@ -88,6 +88,7 @@ dependencies = [
  "diesel",
  "dotenv",
  "mangadex-reader",
+ "reqwest",
  "rocket",
  "rocket_contrib",
  "rocket_cors",
@@ -922,7 +923,6 @@ dependencies = [
 name = "mangadex-reader"
 version = "0.1.0"
 dependencies = [
- "reqwest",
  "serde",
 ]
 
