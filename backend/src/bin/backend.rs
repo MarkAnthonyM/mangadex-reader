@@ -49,10 +49,10 @@ struct MangadexDbConn(diesel::PgConnection);
 //     Json(response)
 // }
 
-#[get("/testfront")]
-fn front_test() -> Json<JsonApiResponse<Manga>> {
+#[get("/testfront/<id>")]
+fn front_test(id: String) -> Json<JsonApiResponse<Manga>> {
     let mut response = JsonApiResponse { data: vec![] };
-    let manga_result = api::manga::Manga::populate();
+    let manga_result = api::manga::Manga::populate(&id);
     let data = match manga_result {
         Ok(result) => Some(result),
         Err(e) => {
@@ -85,7 +85,7 @@ fn front_test() -> Json<JsonApiResponse<Manga>> {
 
     let wrapped_manga = MangaJsonWrapper {
         _type: "mangas".to_string(),
-        id: "42186".to_string(),
+        id,
         attributes: api_manga,
     };
 
@@ -94,9 +94,9 @@ fn front_test() -> Json<JsonApiResponse<Manga>> {
     Json(response)
 }
 
-#[get("/testdexapi")]
-fn dex_test() -> Json<api::manga::Manga> {
-    let response = api::manga::Manga::populate();
+#[get("/testdexapi/<id>")]
+fn dex_test(id: String) -> Json<api::manga::Manga> {
+    let response = api::manga::Manga::populate(&id);
     let data = match response {
         Ok(result) => Some(result),
         Err(e) => {
