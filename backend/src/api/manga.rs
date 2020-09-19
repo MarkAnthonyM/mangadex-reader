@@ -1,5 +1,4 @@
 use reqwest;
-use serde:: Deserialize;
 
 #[derive(Deserialize, Serialize)]
 pub struct Manga {
@@ -20,8 +19,8 @@ pub struct MangaData {
     // Maybe use an enum here
     pub genres: Vec<i32>,
     pub hentai: i32,
-    pub lang_name: String,
     pub lang_flag: String,
+    pub lang_name: String,
     // Figure out proper field datatypes
     // pub links: MangaLinks
     // pub rating: MangaRating,
