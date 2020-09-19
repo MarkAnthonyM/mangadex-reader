@@ -1,4 +1,14 @@
+[tasks.default]
+dependencies = ["build"]
+
 [tasks.serve-back]
 description = "Sends command to spin up the backend server"
 command = "cargo"
 args = ["run", "--bin", "backend"]
+
+[tasks.watch-back]
+description = "Sends command to watch for changes on the back"
+run_task = [
+    { name = "default" },
+]
+watch = true
