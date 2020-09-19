@@ -15,7 +15,6 @@ pub struct Manga {
     // Maybe use an enum here
     pub genres: Vec<i32>,
     pub hentai: i32,
-    pub id: i32,
     pub lang_flag: String,
     pub lang_name: String,
     // Figure out proper field datatypes

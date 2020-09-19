@@ -75,7 +75,6 @@ fn front_test(id: String) -> Json<JsonApiResponse<Manga>> {
         follows: fetched_manga.manga.follows,
         genres: fetched_manga.manga.genres,
         hentai: fetched_manga.manga.hentai,
-        id: 42185,
         lang_flag: fetched_manga.manga.lang_flag,
         lang_name: fetched_manga.manga.lang_name,
         status: fetched_manga.manga.status,
