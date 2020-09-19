@@ -63,13 +63,23 @@ fn front_test() -> Json<JsonApiResponse<Manga>> {
     let fetched_manga = data.unwrap();
 
     let api_manga = Manga {
-        id: 42185,
-        title: fetched_manga.manga.title,
-        authors: Some(vec![fetched_manga.manga.author]),
+        alt_names: fetched_manga.manga.alt_names,
         artists: Some(vec![fetched_manga.manga.artist]),
-        genre_ids: Some(vec![0]),
-        genre_names: Some(vec!["fake genre".to_string()]),
-        url_link: fetched_manga.manga.cover_url,
+        authors: Some(vec![fetched_manga.manga.author]),
+        comments: fetched_manga.manga.comments,
+        cover_url: fetched_manga.manga.cover_url,
+        covers: fetched_manga.manga.covers,
+        demographic: fetched_manga.manga.demographic,
+        description: fetched_manga.manga.description,
+        follows: fetched_manga.manga.follows,
+        genres: fetched_manga.manga.genres,
+        hentai: fetched_manga.manga.hentai,
+        id: 42185,
+        lang_flag: fetched_manga.manga.lang_flag,
+        lang_name: fetched_manga.manga.lang_name,
+        status: fetched_manga.manga.status,
+        title: fetched_manga.manga.title,
+        views: fetched_manga.manga.views,
     };
 
     let wrapped_manga = MangaJsonWrapper {
