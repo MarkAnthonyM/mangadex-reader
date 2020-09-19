@@ -26,10 +26,10 @@ fn update(msg: Msg, model: &mut Model, _orders: &mut impl Orders<Msg>) {
 //      View
 // ------ ------
 
-fn view(_model: &Model) -> impl IntoNodes<Msg> {
+fn view(model: &Model) -> impl IntoNodes<Msg> {
     nodes![
         view_nav(),
-        view_main(),
+        view_main(model),
     ]
 }
 
@@ -54,7 +54,7 @@ fn view_nav() -> Node<Msg> {
 }
 
 // ------ Main ------
-fn view_main() -> Node<Msg> {
+fn view_main(model: &Model) -> Node<Msg> {
     div![
         C!["container", "card-row"],
         div![
@@ -73,7 +73,11 @@ fn view_main() -> Node<Msg> {
                     C!["card-body-img"],
                     img![
                         attrs! {
-                            At::Src => "https://via.placeholder.com/200";
+                            At::Src => if model.mangas.len() > 0 {
+                                format!("https://mangadex.org/{}", model.mangas[0].attributes.url_link)
+                            } else {
+                                "https://via.placeholder.com/200".into()
+                            };
                         }
                     ],
                 ],
@@ -96,14 +100,15 @@ fn view_main() -> Node<Msg> {
 }
 
 async fn fetch_drills() -> Option<Msg> {
-    let request = fetch("http://localhost:8000/mangas/").await;
+    let request = fetch("http://localhost:8000/testapi/").await;
     let payload: Result<JsonApiResponse<Manga>, FetchError> = request.unwrap().json().await;
     Some(Msg::FetchedMangas(payload))
 }
 
 fn init(_url: Url, orders: &mut impl Orders<Msg>) -> Model {
+    let model = Model { mangas: vec![] };
     orders.perform_cmd(fetch_drills());
-    Model { mangas: vec![] }
+    model
 }
 
 #[wasm_bindgen(start)]
