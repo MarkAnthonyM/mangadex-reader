@@ -1,8 +1,6 @@
 #[macro_use]
 extern crate serde;
 
-pub mod api;
-
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Manga {
     pub id: i32,
