@@ -6,7 +6,7 @@ extern crate rocket;
 extern crate rocket_contrib;
 
 use backend::api;
-use backend::db::query_manga;
+// use backend::db::query_manga;
 
 use mangadex_reader::{ JsonApiResponse, Manga, MangaJsonWrapper };
 
