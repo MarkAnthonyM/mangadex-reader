@@ -48,8 +48,8 @@ fn mangas_get(conn: MangadexDbConn) -> Json<JsonApiResponse<Manga>> {
     Json(response)
 }
 
-#[get("/testapi")]
-fn api_test() -> Json<JsonApiResponse<Manga>> {
+#[get("/testfront")]
+fn front_test() -> Json<JsonApiResponse<Manga>> {
     let mut response = JsonApiResponse { data: vec![] };
     let manga_result = api::manga::Manga::populate();
     let data = match manga_result {
@@ -111,7 +111,7 @@ fn main() -> Result<(), Error> {
     rocket::ignite()
         .attach(MangadexDbConn::fairing())
         .attach(cors)
-        .mount("/", routes![mangas_get, api_test, dex_test])
+        .mount("/", routes![mangas_get, front_test, dex_test])
         .launch();
     
     Ok(())
