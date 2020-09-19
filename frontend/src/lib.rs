@@ -100,7 +100,7 @@ fn view_main(model: &Model) -> Node<Msg> {
 }
 
 async fn fetch_drills() -> Option<Msg> {
-    let request = fetch("http://localhost:8000/testapi/").await;
+    let request = fetch("http://localhost:8000/testfront/").await;
     let payload: Result<JsonApiResponse<Manga>, FetchError> = request.unwrap().json().await;
     Some(Msg::FetchedMangas(payload))
 }
