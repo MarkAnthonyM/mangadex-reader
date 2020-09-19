@@ -18,35 +18,36 @@ use rocket_cors::{ AllowedHeaders, AllowedOrigins, Error };
 #[database("postgres_mangadex")]
 struct MangadexDbConn(diesel::PgConnection);
 
+// TODO: Rework backend postgres db to accept new manga struct version
 // Route handler returns payload containing manga listings
-#[get("/mangas")]
-fn mangas_get(conn: MangadexDbConn) -> Json<JsonApiResponse<Manga>> {
-    let mut response = JsonApiResponse { data: vec![] };
+// #[get("/mangas")]
+// fn mangas_get(conn: MangadexDbConn) -> Json<JsonApiResponse<Manga>> {
+//     let mut response = JsonApiResponse { data: vec![] };
 
-    for db_manga in query_manga(&conn) {
-        // Convert database manga model response to api version of manga struct
-        let api_manga = Manga {
-            id: db_manga.id,
-            title: db_manga.title,
-            authors: db_manga.authors,
-            artists: db_manga.artists,
-            genre_ids: db_manga.genre_ids,
-            genre_names: db_manga.genre_names,
-            url_link: db_manga.url_link,
-        };
+//     for db_manga in query_manga(&conn) {
+//         // Convert database manga model response to api version of manga struct
+//         let api_manga = Manga {
+//             id: db_manga.id,
+//             title: db_manga.title,
+//             authors: db_manga.authors,
+//             artists: db_manga.artists,
+//             genre_ids: db_manga.genre_ids,
+//             genre_names: db_manga.genre_names,
+//             url_link: db_manga.url_link,
+//         };
 
-        // Toss queried manga item into wrapper struct that conforms to json api spec.
-        let wrapped_manga = MangaJsonWrapper {
-            _type: "mangas".to_string(),
-            id: api_manga.id.to_string(),
-            attributes: api_manga,
-        };
+//         // Toss queried manga item into wrapper struct that conforms to json api spec.
+//         let wrapped_manga = MangaJsonWrapper {
+//             _type: "mangas".to_string(),
+//             id: api_manga.id.to_string(),
+//             attributes: api_manga,
+//         };
 
-        response.data.push(wrapped_manga)
-    }
+//         response.data.push(wrapped_manga)
+//     }
 
-    Json(response)
-}
+//     Json(response)
+// }
 
 #[get("/testfront")]
 fn front_test() -> Json<JsonApiResponse<Manga>> {
@@ -121,7 +122,7 @@ fn main() -> Result<(), Error> {
     rocket::ignite()
         .attach(MangadexDbConn::fairing())
         .attach(cors)
-        .mount("/", routes![mangas_get, front_test, dex_test])
+        .mount("/", routes![front_test, dex_test])
         .launch();
     
     Ok(())
