@@ -108,8 +108,9 @@ fn dex_test(id: String) -> Json<api::manga::Manga> {
 }
 
 #[post("/testfrontpost", data = "<manga>")]
-fn new(manga: Json<MangaJsonWrapper<Manga>>) {
+fn new(manga: Json<MangaJsonWrapper<Manga>>) -> Json<MangaJsonWrapper<Manga>> {
     println!("{:?}", manga);
+    manga
 }
 
 fn main() -> Result<(), Error> {
@@ -126,7 +127,7 @@ fn main() -> Result<(), Error> {
     rocket::ignite()
         .attach(MangadexDbConn::fairing())
         .attach(cors)
-        .mount("/", routes![front_test, dex_test])
+        .mount("/", routes![front_test, dex_test, new])
         .launch();
     
     Ok(())
