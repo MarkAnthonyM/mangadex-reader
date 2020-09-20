@@ -107,6 +107,11 @@ fn dex_test(id: String) -> Json<api::manga::Manga> {
     Json(data.unwrap())
 }
 
+#[post("/testfrontpost", data = "<manga>")]
+fn new(manga: Json<MangaJsonWrapper<Manga>>) {
+    println!("{:?}", manga);
+}
+
 fn main() -> Result<(), Error> {
     let allowed_origins = AllowedOrigins::all();
 
