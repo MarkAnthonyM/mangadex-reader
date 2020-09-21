@@ -8,6 +8,7 @@ struct Model {
 
 enum Msg {
     FetchedMangas(Result<JsonApiResponse<Manga>, FetchError>),
+    SubmitJson,
 }
 
 fn update(msg: Msg, model: &mut Model, _orders: &mut impl Orders<Msg>) {
