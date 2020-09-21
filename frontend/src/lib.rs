@@ -38,11 +38,10 @@ fn update(msg: Msg, model: &mut Model, orders: &mut impl Orders<Msg>) {
             });
         },
         Msg::Fetched(Ok(result)) => {
-            log!("meh");
+            log!(format!("Fetch Ok: {:?}", result));
         },
         Msg::Fetched(Err(e)) => {
-            log!(format!("error: {:?}", e));
-            log!(format!("{:?}", &model.mangas[0]));
+            log!(format!("Fetch Error: {:?}", e));
         },
     }
 }
