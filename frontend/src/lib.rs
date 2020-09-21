@@ -9,6 +9,7 @@ struct Model {
 enum Msg {
     FetchedMangas(Result<JsonApiResponse<Manga>, FetchError>),
     SubmitJson,
+    Fetched(fetch::Result<MangaJsonWrapper<Manga>>)
 }
 
 fn update(msg: Msg, model: &mut Model, orders: &mut impl Orders<Msg>) {
