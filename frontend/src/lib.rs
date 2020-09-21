@@ -140,11 +140,6 @@ async fn fetch_drills() -> Option<Msg> {
     Some(Msg::FetchedMangas(payload))
 }
 
-async fn post_drills(data: MangaJsonWrapper<Manga>) {
-    let url = "http://localhost:8000/testfrontpost";
-    let request = Request::new(url).method(Method::Post).json(&data).unwrap();
-}
-
 fn init(_url: Url, orders: &mut impl Orders<Msg>) -> Model {
     let model = Model { mangas: vec![] };
     orders.perform_cmd(fetch_drills());
