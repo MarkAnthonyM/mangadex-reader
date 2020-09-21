@@ -109,7 +109,6 @@ fn dex_test(id: String) -> Json<api::manga::Manga> {
 
 #[post("/testfrontpost", data = "<manga>")]
 fn new(manga: Json<MangaJsonWrapper<Manga>>) -> Json<MangaJsonWrapper<Manga>> {
-    println!("{:?}", manga);
     manga
 }
 
