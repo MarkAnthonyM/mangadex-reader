@@ -124,7 +124,7 @@ fn view_main(model: &Model) -> Node<Msg> {
                             C!["save"],
                             "Save!",
                             ev(Ev::Click, |_| {
-                                Msg::SubmitJson;
+                                Msg::SubmitJson
                             }),
                         ],
                     ],
