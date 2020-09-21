@@ -93,6 +93,16 @@ fn view_main(model: &Model) -> Node<Msg> {
                     div![
                         span!["Mock mins ago"],
                     ],
+                    div![
+                        C!["save-button"],
+                        button![
+                            C!["save"],
+                            "Save!",
+                            ev(Ev::Click, |_| {
+                                Msg::SubmitJson;
+                            }),
+                        ],
+                    ],
                 ],
             ],
         ],
