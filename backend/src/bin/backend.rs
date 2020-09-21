@@ -118,7 +118,9 @@ fn main() -> Result<(), Error> {
 
     let cors = rocket_cors::CorsOptions {
         allowed_origins,
-        allowed_headers: AllowedHeaders::some(&["Authorization", "Accept"]),
+        // figure out what headers need to go here
+        // allowed_headers: AllowedHeaders::some(&["Authorization", "Accept"]),
+        allowed_headers: AllowedHeaders::all(),
         allow_credentials: true,
         ..Default::default()
     }
