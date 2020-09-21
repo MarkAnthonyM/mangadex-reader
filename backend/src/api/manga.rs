@@ -3,6 +3,7 @@ use reqwest;
 #[derive(Deserialize, Serialize)]
 pub struct Manga {
     pub manga: MangaData,
+    pub chapter: ChapterData,
 }
 
 #[derive(Deserialize, Serialize)]
