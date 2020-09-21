@@ -11,7 +11,7 @@ enum Msg {
     SubmitJson,
 }
 
-fn update(msg: Msg, model: &mut Model, _orders: &mut impl Orders<Msg>) {
+fn update(msg: Msg, model: &mut Model, orders: &mut impl Orders<Msg>) {
     match msg {
         Msg::FetchedMangas(Ok(mut result)) => {
             model.mangas.clear();
@@ -19,6 +19,29 @@ fn update(msg: Msg, model: &mut Model, _orders: &mut impl Orders<Msg>) {
         },
         Msg::FetchedMangas(Err(reason)) => {
             log!(format!("Error fetching: {:?}", reason));
+        },
+        Msg::SubmitJson => {
+            orders.perform_cmd({
+                let url = "http://localhost:8000/testfrontpost";
+                let request = Request::new(url)
+                    .method(Method::Post)
+                    .json(&model.mangas[0]);
+                async { Msg::Fetched(async {
+                    request?
+                        .fetch()
+                        .await?
+                        .check_status()?
+                        .json()
+                        .await
+                }.await)}
+            });
+        },
+        Msg::Fetched(Ok(result)) => {
+            log!("meh");
+        },
+        Msg::Fetched(Err(e)) => {
+            log!(format!("error: {:?}", e));
+            log!(format!("{:?}", &model.mangas[0]));
         },
     }
 }
