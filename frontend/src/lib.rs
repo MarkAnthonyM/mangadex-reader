@@ -21,6 +21,7 @@ fn update(msg: Msg, model: &mut Model, orders: &mut impl Orders<Msg>) {
         Msg::FetchedMangas(Err(reason)) => {
             log!(format!("Error fetching: {:?}", reason));
         },
+        // Need to study this function and understand its logic
         Msg::SubmitJson => {
             orders.perform_cmd({
                 let url = "http://localhost:8000/testfrontpost";
