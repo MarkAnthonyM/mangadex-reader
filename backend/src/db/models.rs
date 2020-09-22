@@ -28,7 +28,7 @@ pub struct NewManga {
 #[derive(Queryable, Serialize)]
 pub struct Manga {
     pub id: i32,
-    pub alt_names: Option<Vec<String>>,
+    pub alt_names: Vec<String>,
     pub artists: Option<Vec<String>>,
     pub authors: Option<Vec<String>>,
     // Find out what type this should be

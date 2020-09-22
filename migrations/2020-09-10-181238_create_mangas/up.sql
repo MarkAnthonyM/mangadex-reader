@@ -1,6 +1,6 @@
 CREATE TABLE manga (
     id SERIAL PRIMARY KEY,
-    alt_names TEXT [],
+    alt_names TEXT [] NOT NULL,
     artists TEXT [],
     authors TEXT [],
     comments INT NOT NULL,
