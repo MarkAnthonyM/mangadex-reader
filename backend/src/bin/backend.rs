@@ -67,6 +67,7 @@ fn front_test(id: String) -> Json<JsonApiResponse<Manga>> {
         },
     };
 
+    // TODO: Toss this logic straight into manga_result match, otherwise may try to unwrap Err()
     let fetched_manga = data.unwrap();
 
     let api_manga = Manga {
