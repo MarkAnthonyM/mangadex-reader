@@ -31,6 +31,24 @@ pub struct MangaData {
     pub views: i32,
 }
 
+// Represents chapter data associated with api manga struct
+#[derive(Deserialize, Serialize)]
+pub struct ChapterData {
+    pub chapter: String,
+    pub comments: i32,
+    pub group_id: i32,
+    pub group_id_2: i32,
+    pub group_id_3: i32,
+    pub group_name: Option<String>,
+    pub group_name_2: Option<String>,
+    pub group_name_3: Option<String>,
+    pub lang_code: String,
+    pub lang_name: String,
+    pub time_stamp: i64,
+    pub title: String,
+    pub volume: String,
+}
+
 impl Manga {
     // Make request for manga, deserizalize json object data into struct.
     //TODO: Make async when async hits stable rocket version
