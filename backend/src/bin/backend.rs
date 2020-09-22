@@ -6,7 +6,7 @@ extern crate rocket;
 extern crate rocket_contrib;
 
 use backend::api;
-// use backend::db::query_manga;
+use backend::db::{ models, create_manga };
 
 use mangadex_reader::{ JsonApiResponse, Manga, MangaJsonWrapper };
 
@@ -108,8 +108,36 @@ fn dex_test(id: String) -> Json<api::manga::Manga> {
 }
 
 #[post("/testfrontpost", data = "<manga>")]
-fn new(manga: Json<MangaJsonWrapper<Manga>>) -> Json<MangaJsonWrapper<Manga>> {
-    manga
+fn new(conn: MangadexDbConn, manga: Json<MangaJsonWrapper<Manga>>) -> String {
+    // Clone recived manga struct as endpoint does not own the state
+    // Todo: Study this situation more throughly and find a better solution.
+    // Possible starting point: https://stackoverflow.com/questions/56636643/how-to-return-a-state-value-from-a-rocket-endpoint
+    // Check also request-local State from rocket docs.
+    let cloned_manga = manga.clone();
+
+    let db_manga = models::NewManga {
+        alt_names: cloned_manga.attributes.alt_names,
+        artists: cloned_manga.attributes.artists,
+        authors: cloned_manga.attributes.authors,
+        comments: cloned_manga.attributes.comments,
+        cover_url: cloned_manga.attributes.cover_url,
+        covers: cloned_manga.attributes.covers,
+        demographic: manga.attributes.demographic,
+        manga_description: cloned_manga.attributes.description,
+        follows: cloned_manga.attributes.follows,
+        genres: cloned_manga.attributes.genres,
+        hentai: cloned_manga.attributes.hentai,
+        lang_flag: cloned_manga.attributes.lang_flag,
+        lang_name: cloned_manga.attributes.lang_name,
+        manga_id: cloned_manga.id,
+        manga_status: cloned_manga.attributes.status,
+        title: cloned_manga.attributes.title,
+        views: cloned_manga.attributes.views,
+    };
+    
+    let result = create_manga(&conn, db_manga);
+
+    format!("Successfully save into database! Amount inserted: {}", result)
 }
 
 fn main() -> Result<(), Error> {
