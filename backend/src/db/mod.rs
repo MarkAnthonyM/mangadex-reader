@@ -17,9 +17,7 @@ pub fn establish_connection() -> PgConnection {
 }
 
 // Create new manga item and insert into database
-pub fn create_manga(connection: &PgConnection, title: &str) {
-    let manga = models::NewManga::create_mock_data(title);
-
+pub fn create_manga(connection: &PgConnection, manga: models::NewMan) {
     diesel::insert_into(schema::manga::table)
         .values(&manga)
         .execute(connection)
