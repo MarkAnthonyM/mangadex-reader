@@ -2,7 +2,7 @@ use diesel::{ prelude::*, pg::PgConnection };
 use dotenv::dotenv;
 use std::env;
 
-mod models;
+pub mod models;
 mod schema;
 
 use schema::manga;
@@ -17,11 +17,11 @@ pub fn establish_connection() -> PgConnection {
 }
 
 // Create new manga item and insert into database
-pub fn create_manga(connection: &PgConnection, manga: models::NewManga) {
+pub fn create_manga(connection: &PgConnection, manga: models::NewManga) -> usize {
     diesel::insert_into(schema::manga::table)
         .values(&manga)
         .execute(connection)
-        .expect("Error inserting new manga");
+        .expect("Error inserting new manga")
 }
 
 // Query manga item from database
