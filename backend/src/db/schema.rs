@@ -1,7 +1,7 @@
 table! {
     manga (id) {
         id -> Int4,
-        alt_names -> Nullable<Array<Text>>,
+        alt_names -> Array<Text>,
         artists -> Nullable<Array<Text>>,
         authors -> Nullable<Array<Text>>,
         comments -> Int4,
