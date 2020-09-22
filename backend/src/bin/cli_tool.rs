@@ -14,7 +14,9 @@ fn new_manga(args: &[String]) {
     }
     
     let conn = establish_connection();
-    create_manga(&conn, &args[0]);
+    // Temporary disable.
+    // TODO: Reimplement associated method to create mock data
+    // create_manga(&conn, &args[0]);
 }
 
 fn show_manga(args: &[String]) {
