@@ -45,7 +45,7 @@ pub struct ChapterData {
     pub group_name_3: Option<String>,
     pub lang_code: String,
     pub lang_name: String,
-    pub time_stamp: i64,
+    pub timestamp: i64,
     pub title: String,
     pub volume: String,
 }
