@@ -1,9 +1,10 @@
 use reqwest;
+use std::collections::HashMap;
 
 #[derive(Deserialize, Serialize)]
 pub struct Manga {
     pub manga: MangaData,
-    pub chapter: ChapterData,
+    pub chapter: HashMap<u64, ChapterData>,
 }
 
 #[derive(Deserialize, Serialize)]
