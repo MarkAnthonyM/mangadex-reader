@@ -60,4 +60,6 @@ impl Manga {
 
         request
     }
+
+    // TODO: probably need to impl a sorting function for chapter field
 }
