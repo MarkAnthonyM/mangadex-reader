@@ -1,9 +1,20 @@
 CREATE TABLE manga (
     id SERIAL PRIMARY KEY,
-    title TEXT NOT NULL,
-    authors TEXT [],
+    alt_names TEXT [],
     artists TEXT [],
-    genre_ids INT [],
-    genre_names TEXT [],
-    url_link TEXT NOT NULL
+    authors TEXT [],
+    comments INT NOT NULL,
+    cover_url TEXT NOT NULL,
+    covers TEXT [] NOT NULL,
+    demographic INT NOT NULL,
+    follows INT NOT NULL,
+    genres TEXT [] NOT NULL,
+    hentai INT NOT NULL,
+    lang_flag TEXT NOT NULL,
+    lang_name TEXT NOT NULL,
+    manga_description TEXT NOT NULL,
+    manga_id TEXT NOT NULL,
+    manga_status INT NOT NULL,
+    title TEXT NOT NULL,
+    views INT NOT NULL
 )
