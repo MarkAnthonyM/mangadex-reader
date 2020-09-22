@@ -21,32 +21,35 @@ struct MangadexDbConn(diesel::PgConnection);
 // Route handler returns payload containing manga listings
 // Todo: Move from prototype state to finished state
 #[get("/mangas")]
-fn mangas_get(conn: MangadexDbConn) -> Json<JsonApiResponse<models::Manga>> {
+fn mangas_get(conn: MangadexDbConn) -> Json<JsonApiResponse<Manga>> {
     let mut response = JsonApiResponse { data: vec![] };
 
     for db_manga in query_manga(&conn) {
-        // // Convert database manga model response to api version of manga struct
-        // let api_manga = Manga {
-        //     id: db_manga.id,
-        //     title: db_manga.title,
-        //     authors: db_manga.authors,
-        //     artists: db_manga.artists,
-        //     genre_ids: db_manga.genre_ids,
-        //     genre_names: db_manga.genre_names,
-        //     url_link: db_manga.url_link,
-        // };
+        // Convert database manga model response to api version of manga struct
+        let api_manga = Manga {
+            alt_names: db_manga.alt_names,
+            artists: db_manga.artists,
+            authors: db_manga.authors,
+            comments: db_manga.comments,
+            cover_url: db_manga.cover_url,
+            covers: db_manga.covers,
+            demographic: db_manga.demographic,
+            description: db_manga.manga_description,
+            follows: db_manga.follows,
+            genres: db_manga.genres,
+            hentai: db_manga.hentai,
+            lang_flag: db_manga.lang_flag,
+            lang_name: db_manga.lang_name,
+            status: db_manga.manga_status,
+            title: db_manga.title,
+            views: db_manga.views,
+        };
 
-        // // Toss queried manga item into wrapper struct that conforms to json api spec.
-        // let wrapped_manga = MangaJsonWrapper {
-        //     _type: "mangas".to_string(),
-        //     id: api_manga.id.to_string(),
-        //     attributes: api_manga,
-        // };
-
+        // Toss queried manga item into wrapper struct that conforms to json api spec.
         let wrapped_manga = MangaJsonWrapper {
             _type: "mangas".to_string(),
-            id: db_manga.manga_id.clone(),
-            attributes: db_manga,
+            id: db_manga.manga_id,
+            attributes: api_manga,
         };
 
         response.data.push(wrapped_manga)
