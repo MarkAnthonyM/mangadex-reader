@@ -25,7 +25,9 @@ fn mangas_get(conn: MangadexDbConn) -> Json<JsonApiResponse<Manga>> {
     let mut response = JsonApiResponse { data: vec![] };
 
     for db_manga in query_manga(&conn) {
+        //TODO: Attempt to consolidated naming of struct fields across different manga structs
         // Convert database manga model response to api version of manga struct
+        // Needed for now as there are differences in naming of certain fields
         let api_manga = Manga {
             alt_names: db_manga.alt_names,
             artists: db_manga.artists,
