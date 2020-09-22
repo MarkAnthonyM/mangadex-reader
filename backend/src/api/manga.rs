@@ -36,7 +36,7 @@ pub struct MangaData {
 #[derive(Deserialize, Serialize)]
 pub struct ChapterData {
     pub chapter: String,
-    pub comments: i32,
+    pub comments: Option<i32>,
     pub group_id: i32,
     pub group_id_2: i32,
     pub group_id_3: i32,
