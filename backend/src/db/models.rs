@@ -25,19 +25,6 @@ pub struct NewMan {
     pub views: i32,
 }
 
-impl<'a> NewManga<'a> {
-    pub fn create_mock_data(title: &'a str) -> Self {
-        NewManga {
-            title,
-            authors: Some(vec![String::from("Fake Author")]),
-            artists: Some(vec![String::from("Fake Artist")]),
-            genre_ids: Some(vec![0]),
-            genre_names: Some(vec![String::from("Fake Genre")]),
-            url_link: String::from("https://www.fake.com"),
-        }
-    }
-}
-
 #[derive(Queryable, Serialize)]
 pub struct Manga {
     pub id: i32,
