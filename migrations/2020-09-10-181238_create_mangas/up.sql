@@ -8,7 +8,7 @@ CREATE TABLE manga (
     covers TEXT [] NOT NULL,
     demographic INT NOT NULL,
     follows INT NOT NULL,
-    genres TEXT [] NOT NULL,
+    genres INT [] NOT NULL,
     hentai INT NOT NULL,
     lang_flag TEXT NOT NULL,
     lang_name TEXT NOT NULL,

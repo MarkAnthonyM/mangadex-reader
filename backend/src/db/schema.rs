@@ -9,7 +9,7 @@ table! {
         covers -> Array<Text>,
         demographic -> Int4,
         follows -> Int4,
-        genres -> Array<Text>,
+        genres -> Array<Int4>,
         hentai -> Int4,
         lang_flag -> Text,
         lang_name -> Text,
