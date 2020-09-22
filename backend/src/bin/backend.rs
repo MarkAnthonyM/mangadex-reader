@@ -18,7 +18,6 @@ use rocket_cors::{ AllowedHeaders, AllowedOrigins, Error };
 #[database("postgres_mangadex")]
 struct MangadexDbConn(diesel::PgConnection);
 
-// TODO: Rework backend postgres db to accept new manga struct version
 // Route handler returns payload containing manga listings
 // #[get("/mangas")]
 // fn mangas_get(conn: MangadexDbConn) -> Json<JsonApiResponse<Manga>> {
