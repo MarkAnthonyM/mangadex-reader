@@ -44,7 +44,7 @@ pub struct Manga {
     pub lang_flag: String,
     pub lang_name: String,
     pub manga_id: String,
-    pub status: i32,
+    pub manga_status: i32,
     pub title: String,
     pub views: i32,
 }
