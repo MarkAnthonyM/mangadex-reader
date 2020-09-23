@@ -1,5 +1,5 @@
 use std::env;
-use backend::db::{ create_manga, establish_connection, query_manga };
+use backend::db::{ establish_connection, query_manga };
 
 fn help() {
     println!("subcommand:");
@@ -13,7 +13,7 @@ fn new_manga(args: &[String]) {
         return;
     }
     
-    let conn = establish_connection();
+    let _conn = establish_connection();
     // Temporary disable.
     // TODO: Reimplement associated method to create mock data
     // create_manga(&conn, &args[0]);
